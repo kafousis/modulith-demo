@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @param firstName    Customer's first name (for individuals).
  * @param lastName     Customer's last name (for individuals).
  * @param companyName  Company name (for business customers).
- * @param birthDate    Customer's birth date (for individuals).
+ * @param birthDate    Customer's birthdate (for individuals).
  * @param vatNumber    VAT number
  * @param email        Customer's email address.
  * @param phoneNumber  Customer's phone number.

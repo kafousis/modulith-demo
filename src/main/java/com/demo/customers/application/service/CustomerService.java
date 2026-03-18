@@ -37,7 +37,7 @@ public class CustomerService implements CreateCustomerUseCase, UpdateCustomerUse
 
     private final CustomerWritePort writePort;
     private final CustomerCommandMapper mapper;
-    private final ApplicationEventPublisher events;
+    private final ApplicationEventPublisher eventPublisher;
 
     /**
      * Creates a new customer.
@@ -62,7 +62,7 @@ public class CustomerService implements CreateCustomerUseCase, UpdateCustomerUse
         CustomerValidationPolicy.validateCustomer(customer);
 
         Customer created = writePort.save(customer);
-        events.publishEvent(new CustomerCreatedEvent(created.id()));
+        eventPublisher.publishEvent(new CustomerCreatedEvent(created.id()));
         return created.id();
     }
 
@@ -86,7 +86,7 @@ public class CustomerService implements CreateCustomerUseCase, UpdateCustomerUse
         CustomerValidationPolicy.validateCustomer(updated);
         writePort.save(updated);
 
-        events.publishEvent(new CustomerUpdatedEvent(updated.id()));
+        eventPublisher.publishEvent(new CustomerUpdatedEvent(updated.id()));
     }
 
     /**
@@ -109,6 +109,6 @@ public class CustomerService implements CreateCustomerUseCase, UpdateCustomerUse
         CustomerValidationPolicy.validateCustomer(updated);
         writePort.save(updated);
 
-        events.publishEvent(new CustomerAddressChangedEvent(updated.id(), updated.address()));
+        eventPublisher.publishEvent(new CustomerAddressChangedEvent(updated.id(), updated.address()));
     }
 }

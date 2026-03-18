@@ -9,6 +9,8 @@ import com.demo.customers.application.service.mapper.CustomerViewMapper;
 
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Application service for managing customer READ operations.
  *
@@ -19,21 +21,11 @@ import org.springframework.stereotype.Service;
  * <p>All operations are read-only and do not modify system state.
  */
 @Service
+@RequiredArgsConstructor
 public class CustomerQueryService {
 
     private final CustomerReadPort readPort;
     private final CustomerViewMapper mapper;
-
-    /**
-     * Constructs a CustomerQueryService with required dependencies.
-     *
-     * @param readPort the port for reading customer data from the persistence layer
-     * @param mapper   the mapper for converting domain objects to view objects for presentation
-     */
-    public CustomerQueryService(CustomerReadPort readPort, CustomerViewMapper mapper) {
-        this.readPort = readPort;
-        this.mapper = mapper;
-    }
 
     /**
      * Retrieves a customer by their unique identifier.
