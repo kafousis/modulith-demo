@@ -10,14 +10,14 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Basic validation policy for customers in the insurance system.
  * Enforces core insurance domain rules for individual and business customers.
  */
+@UtilityClass
 public final class CustomerValidationPolicy {
-
-    private CustomerValidationPolicy() {
-    }
 
     private static final int MINIMUM_AGE_FOR_INSURANCE = 18;
     private static final Pattern EMAIL_PATTERN = 
@@ -47,7 +47,7 @@ public final class CustomerValidationPolicy {
     /**
      * Validates an individual customer (requires birthdate and age check).
      */
-    public static void validateIndividualCustomer(Customer customer) {
+    private static void validateIndividualCustomer(Customer customer) {
         if (StringUtils.isBlank(customer.firstName())) {
             throw new IllegalArgumentException("First name is required");
         }
@@ -66,7 +66,7 @@ public final class CustomerValidationPolicy {
     /**
      * Validates a business customer (requires company name)
      */
-    public static void validateBusinessCustomer(Customer customer) {
+    private static void validateBusinessCustomer(Customer customer) {
         if (StringUtils.isBlank(customer.companyName())) {
             throw new IllegalArgumentException("Company name is required for business customers");
         }
@@ -75,7 +75,7 @@ public final class CustomerValidationPolicy {
     /**
      * Validates VAT number format (basic check for non-empty).
      */
-    public static void validateVatNumber(String vatNumber) {
+    private static void validateVatNumber(String vatNumber) {
         if (StringUtils.isBlank(vatNumber)) {
             throw new IllegalArgumentException("VAT number is required");
         }
@@ -84,7 +84,7 @@ public final class CustomerValidationPolicy {
     /**
      * Validates email format.
      */
-    public static void validateEmail(String email) {
+    private static void validateEmail(String email) {
         if (StringUtils.isBlank(email)) {
             throw new IllegalArgumentException("Email is required");
         }
@@ -97,7 +97,7 @@ public final class CustomerValidationPolicy {
     /**
      * Validates customer age against insurance minimum.
      */
-    public static void validateAge(LocalDate birthDate) {
+    private static void validateAge(LocalDate birthDate) {
         if (birthDate == null) {
             throw new IllegalArgumentException("Birth date is required");
         }
@@ -116,7 +116,7 @@ public final class CustomerValidationPolicy {
     /**
      * Validates address completeness.
      */
-    public static void validateAddress(Address address) {
+    private static void validateAddress(Address address) {
         if (address == null) {
             throw new IllegalArgumentException("Address is required");
         }
