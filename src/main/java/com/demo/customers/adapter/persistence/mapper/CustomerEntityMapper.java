@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * Mapper class for converting between domain and persistence layer representations of customers.
  */
 @Component
-public class CustomerPersistenceMapper {
+public class CustomerEntityMapper {
 
     /**
      * Converts a persistence entity to a domain model.

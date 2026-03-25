@@ -1,8 +1,8 @@
-package com.demo.customers.application.query.view;
+package com.demo.customers.application.model.view;
 
 import java.time.LocalDate;
 
-import com.demo.customers.application.query.view.dto.AddressView;
+import com.demo.customers.application.model.view.dto.AddressView;
 
 /**
  * View object representing customer information for read operations.

@@ -1,7 +1,7 @@
 package com.demo.customers.application.service.mapper;
 
-import com.demo.customers.application.query.view.CustomerView;
-import com.demo.customers.application.query.view.dto.AddressView;
+import com.demo.customers.application.model.view.CustomerView;
+import com.demo.customers.application.model.view.dto.AddressView;
 import com.demo.customers.domain.model.Address;
 import com.demo.customers.domain.model.Customer;
 

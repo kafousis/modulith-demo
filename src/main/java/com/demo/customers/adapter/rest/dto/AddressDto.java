@@ -1,6 +1,6 @@
-package com.demo.customers.adapter.web.dto;
+package com.demo.customers.adapter.rest.dto;
 
-public record AddressRequest(
+public record AddressDto(
         String street,
         String city,
         String postalCode,

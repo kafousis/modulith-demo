@@ -1,18 +1,21 @@
 package com.demo.customers.application.service;
 
-import com.demo.customers.application.command.ChangeCustomerAddressCommand;
-import com.demo.customers.application.command.CreateCustomerCommand;
-import com.demo.customers.application.command.UpdateCustomerCommand;
+import java.time.Instant;
+import java.util.List;
+
 import com.demo.customers.application.exception.CustomerNotFoundException;
-import com.demo.customers.application.exception.DuplicateCustomerException;
-import com.demo.customers.application.port.in.ChangeCustomerAddressUseCase;
+import com.demo.customers.application.model.command.CustomerCommand;
+import com.demo.customers.application.model.view.CustomerView;
+import com.demo.customers.application.port.in.DeleteCustomerUseCase;
+import com.demo.customers.application.port.in.GetCustomerUseCase;
+import com.demo.customers.application.port.in.ListCustomersUseCase;
+import com.demo.customers.application.port.out.CustomerRepositoryPort;
 import com.demo.customers.application.port.in.CreateCustomerUseCase;
 import com.demo.customers.application.port.in.UpdateCustomerUseCase;
-import com.demo.customers.application.port.out.CustomerWritePort;
 import com.demo.customers.application.service.mapper.CustomerCommandMapper;
-import com.demo.customers.domain.event.CustomerAddressChangedEvent;
+import com.demo.customers.application.service.mapper.CustomerViewMapper;
 import com.demo.customers.domain.event.CustomerCreatedEvent;
-import com.demo.customers.domain.event.CustomerUpdatedEvent;
+import com.demo.customers.domain.exception.VatNumberAlreadyInUseException;
 import com.demo.customers.domain.model.Customer;
 import com.demo.customers.domain.policy.CustomerValidationPolicy;
 
@@ -21,94 +24,72 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
-/**
- * Application service for managing customer WRITE operations.
- *
- * <p>Handles three main use cases: creating, updating, and changing customer addresses.
- * Implements domain-driven design by delegating command-to-domain mapping and persisting
- * through ports, while publishing domain events for eventual consistency.
- *
- * <p>All operations are transactional to ensure data consistency.
- */
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CustomerService implements CreateCustomerUseCase, UpdateCustomerUseCase, ChangeCustomerAddressUseCase {
+public class CustomerService implements
+        CreateCustomerUseCase,
+        GetCustomerUseCase,
+        UpdateCustomerUseCase,
+        DeleteCustomerUseCase,
+        ListCustomersUseCase {
 
-    private final CustomerWritePort writePort;
-    private final CustomerCommandMapper mapper;
+    private final CustomerRepositoryPort customerRepositoryPort;
     private final ApplicationEventPublisher eventPublisher;
 
-    /**
-     * Creates a new customer.
-     *
-     * <p>Validates that no customer with the same VAT number exists, maps command to domain model,
-     * persists the customer, and publishes a CustomerCreatedEvent.
-     *
-     * @param command the create customer command containing all required customer data
-     * @return the ID of the newly created customer
-     * @throws DuplicateCustomerException if a customer with the same VAT number already exists
-     */
-    @Override
-    public Long createCustomer(CreateCustomerCommand command) {
+    private final CustomerCommandMapper commandMapper;
+    private final CustomerViewMapper viewMapper;
 
-        if (writePort.existsByVatNumber(command.vatNumber())) {
-            throw new DuplicateCustomerException(
+    @Override
+    public Long createCustomer(CustomerCommand command) {
+
+        if (customerRepositoryPort.existsByVatNumber(command.vatNumber())) {
+            throw new VatNumberAlreadyInUseException(
                     "Customer with VAT " + command.vatNumber() + " already exists."
             );
         }
 
-        Customer customer = mapper.toDomain(command);
+        Instant now = Instant.now();
+        Customer customer = commandMapper.toDomain(command, now);
         CustomerValidationPolicy.validateCustomer(customer);
 
-        Customer created = writePort.save(customer);
+        Customer created = customerRepositoryPort.save(customer);
         eventPublisher.publishEvent(new CustomerCreatedEvent(created.id()));
         return created.id();
     }
 
-    /**
-     * Updates an existing customer's information.
-     *
-     * <p>Retrieves the customer by ID, maps the update command to a new domain model,
-     * persists the changes, and publishes a CustomerUpdatedEvent.
-     *
-     * @param command the update customer command containing the customer ID and updated fields
-     * @throws CustomerNotFoundException if the customer with the given ID does not exist
-     */
     @Override
-    public void updateCustomer(UpdateCustomerCommand command) {
-        Customer existing = writePort.findById(command.id())
-                .orElseThrow(() -> new CustomerNotFoundException(
-                        "Customer with ID " + command.id() + " not found.")
-                );
-
-        Customer updated = mapper.toDomain(existing, command);
-        CustomerValidationPolicy.validateCustomer(updated);
-        writePort.save(updated);
-
-        eventPublisher.publishEvent(new CustomerUpdatedEvent(updated.id()));
+    public CustomerView getCustomerById(Long id) {
+        return customerRepositoryPort.findById(id)
+                .map(viewMapper::toView)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " not found."));
     }
 
-    /**
-     * Updates a customer's address.
-     *
-     * <p>Retrieves the customer, updates only the address field while preserving other data,
-     * persists the change, and publishes a CustomerAddressChangedEvent.
-     *
-     * @param command the change address command containing the customer ID and new address
-     * @throws CustomerNotFoundException if the customer with the given ID does not exist
-     */
     @Override
-    public void changeCustomerAddress(ChangeCustomerAddressCommand command) {
-        Customer existing = writePort.findById(command.customerId())
-                .orElseThrow(() -> new CustomerNotFoundException(
-                        "Customer with ID " + command.customerId() + " not found.")
-                );
+    public void updateCustomer(Long id, CustomerCommand command) {
 
-        Customer updated = mapper.toDomain(existing, command.address());
+        Customer existing = customerRepositoryPort.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " not found."));
+
+        Instant now = Instant.now();
+        Customer updated = commandMapper.toDomain(existing, command, now);
         CustomerValidationPolicy.validateCustomer(updated);
-        writePort.save(updated);
+        customerRepositoryPort.save(updated);
+    }
 
-        eventPublisher.publishEvent(new CustomerAddressChangedEvent(updated.id(), updated.address()));
+    @Override
+    public void deleteCustomerById(Long id) {
+        if (!customerRepositoryPort.existsById(id)) {
+            throw new CustomerNotFoundException("Customer with ID " + id + " not found.");
+        }
+        customerRepositoryPort.deleteById(id);
+    }
+
+    @Override
+    public List<CustomerView> listCustomers() {
+        return customerRepositoryPort.findAll()
+                .stream()
+                .map(viewMapper::toView)
+                .toList();
     }
 }

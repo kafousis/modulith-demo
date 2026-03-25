@@ -1,4 +1,4 @@
-package com.demo.customers.application.command.input;
+package com.demo.customers.application.model.command.input;
 
 /**
  * Data Transfer Object (DTO) for address information in command input.

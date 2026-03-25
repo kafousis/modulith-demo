@@ -1,4 +1,4 @@
-package com.demo.customers.application.command.input;
+package com.demo.customers.application.model.command.input;
 
 /**
  * Enumeration of customer types in the insurance system.

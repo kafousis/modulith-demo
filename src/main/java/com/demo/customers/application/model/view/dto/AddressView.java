@@ -1,4 +1,4 @@
-package com.demo.customers.application.query.view.dto;
+package com.demo.customers.application.model.view.dto;
 
 /**
  * View object representing address information.

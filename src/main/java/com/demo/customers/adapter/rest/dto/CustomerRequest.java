@@ -1,8 +1,8 @@
-package com.demo.customers.adapter.web.dto;
+package com.demo.customers.adapter.rest.dto;
 
 import java.time.LocalDate;
 
-public record UpdateCustomerRequest(
+public record CustomerRequest(
         String firstName,
         String lastName,
         String companyName,
@@ -10,6 +10,6 @@ public record UpdateCustomerRequest(
         String vatNumber,
         String email,
         String phoneNumber,
-        AddressRequest address,
+        AddressDto address,
         String type
 ) {}

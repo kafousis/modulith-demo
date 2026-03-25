@@ -1,8 +1,9 @@
-package com.demo.customers.adapter.web.dto;
+package com.demo.customers.adapter.rest.dto;
 
 import java.time.LocalDate;
 
-public record CreateCustomerRequest(
+public record CustomerResponse(
+        Long id,
         String firstName,
         String lastName,
         String companyName,
@@ -10,6 +11,6 @@ public record CreateCustomerRequest(
         String vatNumber,
         String email,
         String phoneNumber,
-        AddressRequest address,
+        AddressDto address,
         String type
 ) {}
