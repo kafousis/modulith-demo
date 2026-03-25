@@ -10,6 +10,7 @@ import com.demo.customers.application.model.command.CustomerCommand;
 import com.demo.customers.application.model.view.CustomerView;
 import com.demo.customers.application.service.CustomerService;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class CustomerController {
     private final CustomerResponseMapper responseMapper;
 
     @GetMapping
-    public ResponseEntity<List<CustomerResponse>> listCustomers() {
+    public ResponseEntity<@NonNull List<CustomerResponse>> listCustomers() {
         List<CustomerResponse> response = customerService.listCustomers().stream()
                 .map(responseMapper::toResponse)
                 .toList();
@@ -49,14 +50,14 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerResponse> getCustomer(@PathVariable Long id) {
+    public ResponseEntity<@NonNull CustomerResponse> getCustomer(@PathVariable Long id) {
         CustomerView customerView = customerService.getCustomerById(id);
         CustomerResponse response = responseMapper.toResponse(customerView);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerRequest request) {
+    public ResponseEntity<@NonNull CustomerResponse> createCustomer(@RequestBody CustomerRequest request) {
         CustomerCommand command = requestMapper.toCommand(request);
         Long id = customerService.createCustomer(command);
         CustomerView customerView = customerService.getCustomerById(id);
@@ -65,14 +66,14 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerRequest request) {
+    public ResponseEntity<@NonNull Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerRequest request) {
         CustomerCommand command = requestMapper.toCommand(request);
         customerService.updateCustomer(id, command);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<@NonNull Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomerById(id);
         return ResponseEntity.noContent().build();
     }
