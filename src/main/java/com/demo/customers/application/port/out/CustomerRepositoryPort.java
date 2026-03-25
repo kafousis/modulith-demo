@@ -10,7 +10,7 @@ public interface CustomerRepositoryPort {
     /**
      * Retrieves all customers from the system.
      *
-     * @return list of all customers (may be empty)
+     * @return list of all customers (maybe empty)
      */
     List<Customer> findAll();
 

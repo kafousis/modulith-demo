@@ -8,7 +8,7 @@ import com.demo.customers.domain.model.Customer;
 import org.springframework.stereotype.Component;
 
 /**
- * Mapper class to convert Customer domain model to CustomerView DTO.
+ * Mapper component that converts views and DTOs to domain models.
  */
 @Component
 public class CustomerViewMapper {
@@ -35,7 +35,7 @@ public class CustomerViewMapper {
     }
 
     /**
-     * Helper method to convert an Address domain model to an AddressView DTO.
+     * Converts Address domain model to AddressView DTO.
      *
      * @param address the Address domain model to convert
      * @return the corresponding AddressView DTO

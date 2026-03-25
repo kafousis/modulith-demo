@@ -22,6 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * REST API endpoints for managing customers.
+ * <p>
+ * - GET /customers: List all customers.
+ * - GET /customers/{id}: Get a specific customer by ID.
+ * - POST /customers: Create a new customer.
+ * - PUT /customers/{id}: Update an existing customer.
+ * - DELETE /customers/{id}: Delete a customer by ID.
+ */
 @RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
