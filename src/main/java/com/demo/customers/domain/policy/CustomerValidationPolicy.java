@@ -39,8 +39,6 @@ public final class CustomerValidationPolicy {
             validateIndividualCustomer(customer);
         } else if (customer.type() == CustomerType.BUSINESS) {
             validateBusinessCustomer(customer);
-        } else {
-            throw new IllegalArgumentException("Invalid customer type");
         }
     }
 

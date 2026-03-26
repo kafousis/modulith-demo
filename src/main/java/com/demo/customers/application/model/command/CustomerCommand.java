@@ -10,7 +10,7 @@ import com.demo.customers.application.model.command.input.CustomerTypeInput;
  *
  * @param firstName    customer's first name
  * @param lastName     customer's last name
- * @param companyName  company name (if applicable)
+ * @param companyName  company name
  * @param birthDate    customer's birthdate
  * @param vatNumber    VAT identification number
  * @param email        customer's email address

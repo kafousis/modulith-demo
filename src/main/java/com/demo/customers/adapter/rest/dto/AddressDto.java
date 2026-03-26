@@ -1,5 +1,7 @@
 package com.demo.customers.adapter.rest.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * Data Transfer Object for Address information.
  *
@@ -10,9 +12,9 @@ package com.demo.customers.adapter.rest.dto;
  * @param countryCode the ISO country code of the address
  */
 public record AddressDto(
-        String street,
-        String city,
-        String postalCode,
-        String region,
-        String countryCode
+        @NotBlank String street,
+        @NotBlank String city,
+        @NotBlank String postalCode,
+        @NotBlank String region,
+        @NotBlank String countryCode
 ) {}
