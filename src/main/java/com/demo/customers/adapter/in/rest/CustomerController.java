@@ -1,11 +1,11 @@
-package com.demo.customers.adapter.rest;
+package com.demo.customers.adapter.in.rest;
 
 import java.util.List;
 
-import com.demo.customers.adapter.rest.dto.CustomerRequest;
-import com.demo.customers.adapter.rest.dto.CustomerResponse;
-import com.demo.customers.adapter.rest.mapper.CustomerRequestMapper;
-import com.demo.customers.adapter.rest.mapper.CustomerResponseMapper;
+import com.demo.customers.adapter.in.rest.dto.CustomerRequest;
+import com.demo.customers.adapter.in.rest.dto.CustomerResponse;
+import com.demo.customers.adapter.in.rest.mapper.CustomerRequestMapper;
+import com.demo.customers.adapter.in.rest.mapper.CustomerResponseMapper;
 import com.demo.customers.application.model.command.CustomerCommand;
 import com.demo.customers.application.model.view.CustomerView;
 import com.demo.customers.application.service.CustomerService;

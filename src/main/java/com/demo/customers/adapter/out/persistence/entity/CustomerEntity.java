@@ -1,4 +1,4 @@
-package com.demo.customers.adapter.persistence.entity;
+package com.demo.customers.adapter.out.persistence.entity;
 
 import java.time.Instant;
 import java.time.LocalDate;

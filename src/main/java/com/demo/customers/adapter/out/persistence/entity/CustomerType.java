@@ -1,4 +1,4 @@
-package com.demo.customers.adapter.persistence.entity;
+package com.demo.customers.adapter.out.persistence.entity;
 
 /**
  * Enumeration representing the type of customer in the persistence layer.

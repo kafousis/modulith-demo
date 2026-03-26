@@ -1,7 +1,7 @@
-package com.demo.customers.adapter.rest.mapper;
+package com.demo.customers.adapter.in.rest.mapper;
 
-import com.demo.customers.adapter.rest.dto.AddressDto;
-import com.demo.customers.adapter.rest.dto.CustomerRequest;
+import com.demo.customers.adapter.in.rest.dto.AddressDto;
+import com.demo.customers.adapter.in.rest.dto.CustomerRequest;
 import com.demo.customers.application.model.command.CustomerCommand;
 import com.demo.customers.application.model.command.input.AddressInput;
 import com.demo.customers.application.model.command.input.CustomerTypeInput;

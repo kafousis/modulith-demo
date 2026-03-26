@@ -1,4 +1,4 @@
-package com.demo.customers.adapter.rest.dto;
+package com.demo.customers.adapter.in.rest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

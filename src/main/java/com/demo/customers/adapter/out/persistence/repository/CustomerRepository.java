@@ -1,6 +1,6 @@
-package com.demo.customers.adapter.persistence.repository;
+package com.demo.customers.adapter.out.persistence.repository;
 
-import com.demo.customers.adapter.persistence.entity.CustomerEntity;
+import com.demo.customers.adapter.out.persistence.entity.CustomerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

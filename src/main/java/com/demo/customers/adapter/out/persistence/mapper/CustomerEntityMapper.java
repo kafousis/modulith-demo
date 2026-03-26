@@ -1,6 +1,8 @@
-package com.demo.customers.adapter.persistence.mapper;
+package com.demo.customers.adapter.out.persistence.mapper;
 
-import com.demo.customers.adapter.persistence.entity.CustomerEntity;
+import com.demo.customers.adapter.out.persistence.entity.Address;
+import com.demo.customers.adapter.out.persistence.entity.CustomerEntity;
+import com.demo.customers.adapter.out.persistence.entity.CustomerType;
 import com.demo.customers.domain.model.Customer;
 
 import org.mapstruct.Mapper;
@@ -33,7 +35,7 @@ public interface CustomerEntityMapper {
      * @param address the domain address to convert
      * @return the corresponding persistence address entity
      */
-    com.demo.customers.adapter.persistence.entity.Address toEntityAddress(com.demo.customers.domain.model.Address address);
+    Address toEntityAddress(com.demo.customers.domain.model.Address address);
 
     /**
      * Converts a persistence address entity to a domain address.
@@ -41,7 +43,7 @@ public interface CustomerEntityMapper {
      * @param address the persistence address entity to convert
      * @return the corresponding domain address
      */
-    com.demo.customers.domain.model.Address toDomainAddress(com.demo.customers.adapter.persistence.entity.Address address);
+    com.demo.customers.domain.model.Address toDomainAddress(Address address);
 
     /**
      * Converts a persistence customer type enum to a domain customer type enum.
@@ -49,7 +51,7 @@ public interface CustomerEntityMapper {
      * @param type the persistence customer type to convert
      * @return the corresponding domain customer type
      */
-    com.demo.customers.domain.model.CustomerType toDomainCustomerType(com.demo.customers.adapter.persistence.entity.CustomerType type);
+    com.demo.customers.domain.model.CustomerType toDomainCustomerType(CustomerType type);
 
     /**
      * Converts a domain customer type enum to a persistence customer type enum.
@@ -57,5 +59,5 @@ public interface CustomerEntityMapper {
      * @param type the domain customer type to convert
      * @return the corresponding persistence customer type
      */
-    com.demo.customers.adapter.persistence.entity.CustomerType toEntityCustomerType(com.demo.customers.domain.model.CustomerType type);
+    CustomerType toEntityCustomerType(com.demo.customers.domain.model.CustomerType type);
 }

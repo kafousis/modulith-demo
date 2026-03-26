@@ -1,11 +1,11 @@
-package com.demo.customers.adapter.persistence;
+package com.demo.customers.adapter.out.persistence;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.demo.customers.adapter.persistence.entity.CustomerEntity;
-import com.demo.customers.adapter.persistence.mapper.CustomerEntityMapper;
-import com.demo.customers.adapter.persistence.repository.CustomerRepository;
+import com.demo.customers.adapter.out.persistence.entity.CustomerEntity;
+import com.demo.customers.adapter.out.persistence.mapper.CustomerEntityMapper;
+import com.demo.customers.adapter.out.persistence.repository.CustomerRepository;
 import com.demo.customers.application.port.out.CustomerRepositoryPort;
 import com.demo.customers.domain.model.Customer;
 
