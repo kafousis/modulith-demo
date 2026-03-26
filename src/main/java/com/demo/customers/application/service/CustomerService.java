@@ -21,7 +21,7 @@ import com.demo.customers.domain.policy.CustomerValidationPolicy;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -30,7 +30,6 @@ import lombok.RequiredArgsConstructor;
  * and uses mappers to convert between domain models and application models.
  */
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class CustomerService implements
         CreateCustomerUseCase,

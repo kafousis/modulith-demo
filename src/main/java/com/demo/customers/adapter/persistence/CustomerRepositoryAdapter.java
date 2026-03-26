@@ -1,4 +1,4 @@
-package com.demo.customers.adapter.persistence.adapter;
+package com.demo.customers.adapter.persistence;
 
 import java.util.List;
 import java.util.Optional;
