@@ -1,3 +1,20 @@
 spring:
   application:
     name: modulith-demo
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true # run data.sql after Hibernate finishes schema creation
+  sql:
+    init:
+      mode: embedded
+  jackson:
+    default-property-inclusion: non_null
