@@ -1,12 +1,14 @@
 package com.demo.customers.adapter.out.persistence.repository;
 
 import com.demo.customers.adapter.out.persistence.entity.CustomerEntity;
+
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Spring Data JPA repository for {@link CustomerEntity} operations.
  */
-public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
+public interface CustomerRepository extends JpaRepository<@NonNull CustomerEntity, @NonNull Long> {
 
     /**
      * Checks if a customer exists with the specified VAT number.
