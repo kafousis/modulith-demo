@@ -23,12 +23,14 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service class responsible for handling customer-related operations such as creating, retrieving,
  * updating, and deleting customers. It interacts with the CustomerRepositoryPort for data access
  * and uses mappers to convert between domain models and application models.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerService implements
@@ -66,6 +68,8 @@ public class CustomerService implements
         CustomerValidationPolicy.validateCustomer(customer);
 
         Customer created = customerRepositoryPort.save(customer);
+        log.info("Customer created with ID: {}", created.id());
+
         eventPublisher.publishEvent(new CustomerCreatedEvent(created.id()));
         return created.id();
     }
@@ -101,6 +105,8 @@ public class CustomerService implements
         Customer updated = commandMapper.toDomain(existing, command, now);
         CustomerValidationPolicy.validateCustomer(updated);
         customerRepositoryPort.save(updated);
+
+        log.info("Customer with ID {} updated successfully.", id);
     }
 
     /**
@@ -115,6 +121,8 @@ public class CustomerService implements
             throw new CustomerNotFoundException("Customer with ID " + id + " not found.");
         }
         customerRepositoryPort.deleteById(id);
+
+        log.info("Customer with ID {} deleted successfully.", id);
     }
 
     /**
