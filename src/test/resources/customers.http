@@ -1,0 +1,91 @@
+### Base URL variable
+@baseUrl = http://localhost:8080
+@customerId = 1
+
+### List all customers
+GET {{baseUrl}}/rest/v1/customers
+Accept: application/json
+
+###
+
+### Get a customer by ID
+GET {{baseUrl}}/rest/v1/customers/{{customerId}}
+Accept: application/json
+
+###
+
+### Create a new individual customer
+POST {{baseUrl}}/rest/v1/customers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "birthDate": "1990-05-15",
+  "vatNumber": "VAT123456789",
+  "email": "john.doe@example.com",
+  "phoneNumber": "+1-555-123-4567",
+  "address": {
+    "street": "123 Main Street",
+    "city": "Springfield",
+    "postalCode": "12345",
+    "region": "Illinois",
+    "countryCode": "US"
+  },
+  "type": "INDIVIDUAL"
+}
+
+###
+
+### Create a new company customer
+POST {{baseUrl}}/rest/v1/customers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "companyName": "Acme Corp",
+  "birthDate": "2000-01-01",
+  "vatNumber": "VAT987654321",
+  "email": "contact@acmecorp.com",
+  "phoneNumber": "+1-555-987-6543",
+  "address": {
+    "street": "456 Business Ave",
+    "city": "Metropolis",
+    "postalCode": "67890",
+    "region": "New York",
+    "countryCode": "US"
+  },
+  "type": "COMPANY"
+}
+
+###
+
+### Update an existing customer
+PUT {{baseUrl}}/rest/v1/customers/{{customerId}}
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "birthDate": "1992-08-20",
+  "vatNumber": "VAT111222333",
+  "email": "jane.doe@example.com",
+  "phoneNumber": "+1-555-222-3333",
+  "address": {
+    "street": "789 Oak Lane",
+    "city": "Shelbyville",
+    "postalCode": "54321",
+    "region": "Tennessee",
+    "countryCode": "US"
+  },
+  "type": "INDIVIDUAL"
+}
+
+###
+
+### Delete a customer by ID
+DELETE {{baseUrl}}/rest/v1/customers/{{customerId}}
+
+###
+
