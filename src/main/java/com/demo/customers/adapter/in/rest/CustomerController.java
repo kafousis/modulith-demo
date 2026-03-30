@@ -47,6 +47,11 @@ public class CustomerController {
     private final CustomerRequestMapper requestMapper;
     private final CustomerResponseMapper responseMapper;
 
+    /**
+     * Retrieves a list of all customers.
+     *
+     * @return a ResponseEntity containing a list of CustomerResponse objects and an HTTP status code
+     */
     @GetMapping
     public ResponseEntity<@NonNull List<CustomerResponse>> listCustomers() {
         List<CustomerResponse> response = customerService.listCustomers().stream()
@@ -55,6 +60,12 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    /**
+     * Retrieves a specific customer by ID.
+     *
+     * @param id the ID of the customer to retrieve
+     * @return a ResponseEntity containing the CustomerResponse object and an HTTP status code
+     */
     @GetMapping("/{id}")
     public ResponseEntity<@NonNull CustomerResponse> getCustomer(@PathVariable @Min(1) Long id) {
         CustomerView customerView = customerService.getCustomerById(id);
@@ -62,6 +73,12 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    /**
+     * Creates a new customer with the provided details.
+     *
+     * @param request the CustomerRequest object containing the details of the customer to create
+     * @return a ResponseEntity containing the created CustomerResponse object and an HTTP status code
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<@NonNull CustomerResponse> createCustomer(@Valid @RequestBody CustomerRequest request) {
         CustomerCommand command = requestMapper.toCommand(request);
@@ -71,6 +88,13 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    /**
+     * Updates an existing customer with the provided details.
+     *
+     * @param id      the ID of the customer to update
+     * @param request the CustomerRequest object containing the updated details of the customer
+     * @return a ResponseEntity with an HTTP status code indicating the result of the operation
+     */
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<@NonNull Void> updateCustomer(@PathVariable @Min(1) Long id, @Valid @RequestBody CustomerRequest request) {
         CustomerCommand command = requestMapper.toCommand(request);
@@ -78,6 +102,12 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    /**
+     * Deletes a customer by ID.
+     *
+     * @param id the ID of the customer to delete
+     * @return a ResponseEntity with an HTTP status code indicating the result of the operation
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<@NonNull Void> deleteCustomer(@PathVariable @Min(1) Long id) {
         customerService.deleteCustomerById(id);

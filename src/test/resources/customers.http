@@ -9,7 +9,7 @@ Accept: application/json
 ###
 
 ### Get a customer by ID
-GET {{baseUrl}}/rest/v1/customers/{{customerId}}
+GET {{baseUrl}}/rest/v1/customers/11
 Accept: application/json
 
 ###
@@ -22,7 +22,7 @@ Accept: application/json
 {
   "firstName": "John",
   "lastName": "Doe",
-  "birthDate": "1990-05-15",
+  "birthDate": "2000-05-15",
   "vatNumber": "VAT123456789",
   "email": "john.doe@example.com",
   "phoneNumber": "+1-555-123-4567",
@@ -45,8 +45,7 @@ Accept: application/json
 
 {
   "companyName": "Acme Corp",
-  "birthDate": "2000-01-01",
-  "vatNumber": "VAT987654321",
+  "vatNumber": "VAT987dadada654321",
   "email": "contact@acmecorp.com",
   "phoneNumber": "+1-555-987-6543",
   "address": {
@@ -56,7 +55,7 @@ Accept: application/json
     "region": "New York",
     "countryCode": "US"
   },
-  "type": "COMPANY"
+  "type": "BUSINESS"
 }
 
 ###

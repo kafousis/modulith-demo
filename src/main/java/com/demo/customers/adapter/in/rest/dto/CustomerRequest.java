@@ -2,6 +2,7 @@ package com.demo.customers.adapter.in.rest.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,10 +24,10 @@ public record CustomerRequest(
         String firstName,
         String lastName,
         String companyName,
-        @NotNull LocalDate birthDate,
+        LocalDate birthDate,
         @NotBlank  String vatNumber,
-        @Email String email,
+        @NotBlank @Email String email,
         @NotBlank String phoneNumber,
-        @NotNull AddressDto address,
+        @NotNull @Valid AddressDto address,
         @NotBlank String type
 ) {}
