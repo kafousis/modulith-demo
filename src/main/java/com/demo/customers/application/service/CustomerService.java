@@ -22,6 +22,7 @@ import com.demo.customers.domain.policy.CustomerValidationPolicy;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,7 @@ public class CustomerService implements
      * @throws VatNumberAlreadyInUseException if a customer with the same VAT number already exists
      */
     @Override
+    @Transactional
     public Long createCustomer(CustomerCommand command) {
 
         if (customerRepositoryPort.existsByVatNumber(command.vatNumber())) {
@@ -97,6 +99,7 @@ public class CustomerService implements
      * @throws CustomerNotFoundException if no customer with the given ID is found
      */
     @Override
+    @Transactional
     public void updateCustomer(Long id, CustomerCommand command) {
 
         Customer existing = customerRepositoryPort.findById(id)
