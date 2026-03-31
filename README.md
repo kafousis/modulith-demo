@@ -54,8 +54,10 @@ src/main/java/com/demo/
 │   │   └── events/                       # Public API: domain events published to other modules
 │   │       └── package-info.java         # @NamedInterface("customer-events") — exposes this package
 │   ├── adapter/
-│   │   └── in/
-│   │       └── rest/                     # [Driving Adapter] REST controllers, DTOs, mappers
+│   │   ├── in/
+│   │   │   └── rest/                     # [Driving Adapter] REST controllers, DTOs, mappers
+│   │   └── out/
+│   │       └── persistence/              # [Driven Adapter] JPA entities, repositories, persistence mapper
 │   ├── application/
 │   │   ├── port/
 │   │   │   ├── in/                       # [Input Ports] Use case interfaces (what the app can do)
@@ -72,8 +74,10 @@ src/main/java/com/demo/
 │
 └── notifications/                        # MODULE: Notifications
     ├── adapter/
-    │   └── in/
-    │       └── events/                   # [Driving Adapter] Listens to domain events from customers module
+    │   ├── in/
+    │   │   └── events/                   # [Driving Adapter] Listens to domain events from customers module
+    │   └── out/
+    │       └── email/                    # [Driven Adapter] Implements NotificationDeliveryPort (logs to console)
     ├── application/
     │   ├── port/
     │   │   ├── in/                       # [Input Ports] Notification use case interfaces
