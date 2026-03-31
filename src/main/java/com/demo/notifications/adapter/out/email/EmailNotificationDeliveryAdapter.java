@@ -17,7 +17,6 @@ public class EmailNotificationDeliveryAdapter implements NotificationDeliveryPor
      */
     @Override
     public void send(Notification notification) {
-        // Simulate sending an email by logging the notification details
         log.info("Sending email to: {}", notification.recipientEmail());
         log.info("Subject: {}", notification.subject());
         log.info("Message: {}", notification.message());

@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Service class responsible for handling customer notifications related to account creation and updates.
+ * It implements the NotifyCustomerOfCreation and NotifyCustomerOfUpdate interfaces to provide
+ * notification functionality. The service uses the NotificationDeliveryPort to send notifications
+ * to customers via email.
+ */
 @Service
 @RequiredArgsConstructor
 public class NotificationService implements NotifyCustomerOfCreation, NotifyCustomerOfUpdate {
