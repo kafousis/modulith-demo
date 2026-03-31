@@ -70,7 +70,7 @@ src/main/java/com/demo/
 │       ├── policy/                       # Business rules (e.g. CustomerValidationPolicy)
 │       └── exception/                    # Domain-level exceptions
 │
-└── notifications/                        # MODULE: Customer notification
+└── notifications/                        # MODULE: Notifications
     ├── adapter/
     │   └── in/
     │       └── events/                   # [Driving Adapter] Listens to domain events from customers module
