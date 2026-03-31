@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 /**
- * Represents a customer in the insurance context.
+ * Represents a customer, which can be either an individual or a business entity.
  * <p>
  * This record encapsulates customer details such as personal information,
  * company data, contact information, address, customer type, and timestamps.

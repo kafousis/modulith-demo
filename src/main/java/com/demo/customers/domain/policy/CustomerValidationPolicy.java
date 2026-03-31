@@ -11,16 +11,15 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.experimental.UtilityClass;
 
 /**
- * Basic validation policy for customers in the insurance system.
- * Enforces core insurance domain rules for individual and business customers.
+ * Utility class for validating customer data against domain rules.
  */
 @UtilityClass
 public final class CustomerValidationPolicy {
 
-    private static final int MINIMUM_AGE_FOR_INSURANCE = 18;
+    private static final int MINIMUM_AGE = 18;
 
     /**
-     * Validates a customer against insurance domain rules.
+     * Validates a customer against domain rules.
      */
     public static void validateCustomer(Customer customer) {
         if (customer.type() == CustomerType.INDIVIDUAL) {
@@ -54,7 +53,7 @@ public final class CustomerValidationPolicy {
     }
 
     /**
-     * Validates customer age against insurance minimum.
+     * Validates customer age against minimum.
      */
     private static void validateAge(LocalDate birthDate) {
         if (birthDate == null) {
@@ -67,7 +66,7 @@ public final class CustomerValidationPolicy {
 
         int age = Period.between(birthDate, LocalDate.now()).getYears();
 
-        if (age < MINIMUM_AGE_FOR_INSURANCE) {
+        if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("Customer must be at least 18 years old");
         }
     }

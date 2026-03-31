@@ -1,7 +1,7 @@
 package com.demo.customers.domain.model;
 
 /**
- * Represents an address for a customer in the insurance context.
+ * Represents a physical address.
  *
  * @param street      Street name and number.
  * @param city        City name.

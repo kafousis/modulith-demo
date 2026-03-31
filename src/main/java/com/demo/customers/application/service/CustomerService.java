@@ -14,7 +14,8 @@ import com.demo.customers.application.port.in.CreateCustomerUseCase;
 import com.demo.customers.application.port.in.UpdateCustomerUseCase;
 import com.demo.customers.application.service.mapper.CustomerCommandMapper;
 import com.demo.customers.application.service.mapper.CustomerViewMapper;
-import com.demo.customers.domain.event.CustomerCreatedEvent;
+import com.demo.customers.api.events.CustomerCreatedEvent;
+import com.demo.customers.api.events.CustomerUpdatedEvent;
 import com.demo.customers.domain.exception.VatNumberAlreadyInUseException;
 import com.demo.customers.domain.model.Customer;
 import com.demo.customers.domain.policy.CustomerValidationPolicy;
@@ -70,7 +71,7 @@ public class CustomerService implements
         Customer created = customerRepositoryPort.save(customer);
         log.info("Customer created with ID: {}", created.id());
 
-        eventPublisher.publishEvent(new CustomerCreatedEvent(created.id()));
+        eventPublisher.publishEvent(new CustomerCreatedEvent(getFullName(created), created.email()));
         return created.id();
     }
 
@@ -107,6 +108,7 @@ public class CustomerService implements
         customerRepositoryPort.save(updated);
 
         log.info("Customer with ID {} updated successfully.", id);
+        eventPublisher.publishEvent(new CustomerUpdatedEvent(getFullName(updated), updated.email()));
     }
 
     /**
@@ -136,5 +138,18 @@ public class CustomerService implements
                 .stream()
                 .map(viewMapper::toView)
                 .toList();
+    }
+
+    /**
+     * Helper method to get the full name of a customer based on its type (individual or business).
+     *
+     * @param customer the customer for which to get the full name
+     * @return the full name of the customer
+     */
+    private String getFullName(Customer customer) {
+        return switch (customer.type()) {
+            case INDIVIDUAL -> customer.firstName() + " " + customer.lastName();
+            case BUSINESS -> customer.companyName();
+        };
     }
 }
