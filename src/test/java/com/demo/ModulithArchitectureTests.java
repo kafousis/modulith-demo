@@ -32,7 +32,7 @@ class ModulithArchitectureTests {
      * Generates AsciiDoc documentation and PlantUML diagrams for all modules.
      * Output is written to the target/spring-modulith-docs directory.
      * - writeDocumentation()           → produces all-docs.adoc and per-module .adoc files
-     * - writeIndividualModulesAsPlantUml() → produces per-module .puml diagram files
+     * - writeIndividualModulesAsPlantUml() → produces .puml diagram files
      */
     @Test
     void createModuleDocumentation() {
