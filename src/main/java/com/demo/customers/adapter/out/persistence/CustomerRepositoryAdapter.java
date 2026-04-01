@@ -11,14 +11,14 @@ import com.demo.customers.domain.model.Customer;
 
 import org.springframework.stereotype.Repository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Adapter class that implements the CustomerRepositoryPort interface and interacts with the CustomerRepository.
  * It uses the CustomerEntityMapper to convert between Customer domain objects and CustomerEntity objects.
  */
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
 
     private final CustomerRepository customerRepository;
