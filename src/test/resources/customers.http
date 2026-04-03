@@ -9,7 +9,7 @@ Accept: application/json
 ###
 
 ### Get a customer by ID
-GET {{baseUrl}}/rest/v1/customers/11
+GET {{baseUrl}}/rest/v1/customers/{{customerId}}
 Accept: application/json
 
 ###
